@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="800.0"
+      spacing="5.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="fr.rtgrenoble.velascof.simtelui.controller.param.DonneesController">
+    <children>
+        <VBox alignment="TOP_CENTER" spacing="10.0">
+            <children>
+                <Label text="Données">
+                    <font>
+                        <Font name="System Bold" size="18.0"/>
+                    </font>
+                </Label>
+                <Label text="Séquence à générer">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Label>
+            </children>
+        </VBox>
+        <RadioButton fx:id="donneeButton" mnemonicParsing="false" selected="true" text="Séquence donnée">
+            <toggleGroup>
+                <ToggleGroup fx:id="group"/>
+            </toggleGroup>
+        </RadioButton>
+        <VBox spacing="5.0">
+            <children>
+                <HBox fx:id="donneePane" alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label prefWidth="200.0" text="Séquence (ex: 1001)  : "/>
+                        <TextField fx:id="donneeField"/>
+                    </children>
+                    <padding>
+                        <Insets left="50.0"/>
+                    </padding>
+                </HBox>
+            </children>
+            <VBox.margin>
+                <Insets bottom="10.0"/>
+            </VBox.margin>
+        </VBox>
+        <RadioButton fx:id="aleatoireButton" mnemonicParsing="false" text="Séquence aléatoire" toggleGroup="$group"/>
+        <VBox fx:id="aleatoirePane" spacing="5.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <padding>
+                        <Insets left="50.0"/>
+                    </padding>
+                    <children>
+                        <Label prefWidth="200.0" text="Taille (bits) :"/>
+                        <TextField fx:id="aleatoireTailleField" prefWidth="50.0" text="0"/>
+                    </children>
+                </HBox>
+            </children>
+            <VBox.margin>
+                <Insets bottom="10.0"/>
+            </VBox.margin>
+        </VBox>
+        <RadioButton fx:id="pseudoAleatoireButton" mnemonicParsing="false" text="Séquence pseudo-aléatoire"
+                     toggleGroup="$group"/>
+        <VBox fx:id="pseudoAleatoirePane" spacing="5.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <padding>
+                        <Insets left="50.0"/>
+                    </padding>
+                    <children>
+                        <Label prefWidth="200.0" text="Taille (bits) :"/>
+                        <TextField fx:id="pseudoAleatoireTailleField" prefWidth="50.0" text="0"/>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <padding>
+                        <Insets left="50.0"/>
+                    </padding>
+                    <children>
+                        <Label prefWidth="200.0" text="Nombre de répétitions :"/>
+                        <TextField fx:id="repetitionsField" prefWidth="50.0" text="0"/>
+                    </children>
+                </HBox>
+            </children>
+            <VBox.margin>
+                <Insets bottom="10.0"/>
+            </VBox.margin>
+        </VBox>
+        <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <children>
+                <Label prefWidth="250.0" text="Débit binaire (bit/s) :"/>
+                <TextField fx:id="debitBinaireField" prefWidth="100.0" text="0.0"/>
+            </children>
+        </HBox>
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+    </padding>
+</VBox>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="800.0"
+      spacing="5.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="fr.rtgrenoble.velascof.simtelui.controller.param.CodageSourceController">
+    <fx:define>
+        <ToggleGroup fx:id="group"/>
+    </fx:define>
+    <children>
+        <VBox alignment="TOP_CENTER" spacing="10.0">
+            <children>
+                <Label text="Codage source">
+                    <font>
+                        <Font name="System Bold" size="18.0"/>
+                    </font>
+                </Label>
+                <Label text="Codage de la séquence">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Label>
+            </children>
+        </VBox>
+        <RadioButton fx:id="nrzButton" mnemonicParsing="false" selected="true" text="NRZ">
+            <toggleGroup>
+                <ToggleGroup fx:id="group"/>
+            </toggleGroup>
+        </RadioButton>
+        <HBox fx:id="nrzPane" spacing="50.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label prefWidth="60.0" text="V0 (V) :"/>
+                        <TextField fx:id="nrzV0Field" prefWidth="50.0" text="0.0"/>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" spacing="10.0">
+                    <children>
+                        <Label prefWidth="60.0" text="V1 (V) :"/>
+                        <TextField fx:id="nrzV1Field" prefWidth="50.0" text="0.0"/>
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets left="50.0"/>
+            </padding>
+            <VBox.margin>
+                <Insets bottom="10.0"/>
+            </VBox.margin>
+        </HBox>
+        <RadioButton fx:id="rzButton" mnemonicParsing="false" text="RZ" toggleGroup="$group"/>
+        <HBox fx:id="rzPane" layoutX="20.0" layoutY="43.0" spacing="50.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label prefWidth="60.0" text="V0 (V) :"/>
+                        <TextField fx:id="rzV0Field" prefWidth="50.0" text="0.0"/>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label prefWidth="60.0" text="V1 (V) :"/>
+                        <TextField fx:id="rzV1Field" prefWidth="50.0" text="0.0"/>
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets left="50.0"/>
+            </padding>
+            <VBox.margin>
+                <Insets bottom="10.0"/>
+            </VBox.margin>
+        </HBox>
+        <RadioButton fx:id="manchesterButton" mnemonicParsing="false" text="Manchester" toggleGroup="$group"/>
+        <HBox fx:id="manchesterPane" layoutX="20.0" layoutY="143.0" spacing="50.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label prefWidth="60.0" text="V+ (V) :"/>
+                        <TextField fx:id="manchesterVpField" prefWidth="50.0" text="0.0"/>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" spacing="10.0">
+                    <children>
+                        <Label prefWidth="60.0" text="V- (V) :"/>
+                        <TextField fx:id="manchesterVmField" prefWidth="50.0" text="0.0"/>
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets left="50.0"/>
+            </padding>
+            <VBox.margin>
+                <Insets bottom="10.0"/>
+            </VBox.margin>
+        </HBox>
+        <RadioButton fx:id="_2b1qButton" mnemonicParsing="false" text="2B1Q" toggleGroup="$group"/>
+        <HBox fx:id="_2b1qPane" layoutX="20.0" layoutY="174.0" spacing="50.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label prefWidth="60.0" text="V00 (V) :"/>
+                        <TextField fx:id="_2b1qV00Field" prefWidth="50.0" text="0.0"/>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" layoutX="60.0" layoutY="10.0" spacing="10.0">
+                    <children>
+                        <Label prefWidth="60.0" text="V01 (V) :"/>
+                        <TextField fx:id="_2b1qV01Field" prefWidth="50.0" text="0.0"/>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" layoutX="60.0" layoutY="10.0" spacing="10.0">
+                    <children>
+                        <Label prefWidth="60.0" text="V10 (V) :"/>
+                        <TextField fx:id="_2b1qV10Field" prefWidth="50.0" text="0.0"/>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" layoutX="230.0" layoutY="10.0" spacing="10.0">
+                    <children>
+                        <Label prefWidth="60.0" text="V11 (V) :"/>
+                        <TextField fx:id="_2b1qV11Field" prefWidth="50.0" text="0.0"/>
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets left="50.0"/>
+            </padding>
+            <VBox.margin>
+                <Insets bottom="10.0"/>
+            </VBox.margin>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <children>
+                <Label prefWidth="280.0" text="Fréquence d'échantillonnage (Hz) :"/>
+                <TextField fx:id="fEchField" prefWidth="100.0" text="0.0"/>
+            </children>
+        </HBox>
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+    </padding>
+</VBox>

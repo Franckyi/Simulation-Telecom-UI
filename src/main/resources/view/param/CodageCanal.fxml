@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="800.0"
+      spacing="5.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="fr.rtgrenoble.velascof.simtelui.controller.param.CodageCanalController">
+    <children>
+        <VBox alignment="TOP_CENTER" spacing="10.0">
+            <children>
+                <Label text="Codage canal">
+                    <font>
+                        <Font name="System Bold" size="18.0"/>
+                    </font>
+                </Label>
+                <Label text="Modulation de la porteuse">
+                    <font>
+                        <Font size="14.0"/>
+                    </font>
+                </Label>
+            </children>
+        </VBox>
+        <RadioButton fx:id="askButton" mnemonicParsing="false" selected="true" text="ASK-2">
+            <toggleGroup>
+                <ToggleGroup fx:id="group"/>
+            </toggleGroup>
+        </RadioButton>
+        <VBox fx:id="askPane" spacing="5.0">
+            <VBox.margin>
+                <Insets bottom="10.0"/>
+            </VBox.margin>
+            <padding>
+                <Insets left="50.0"/>
+            </padding>
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label prefWidth="230.0" text="Ordre :"/>
+                        <TextField fx:id="askOrdreField" prefWidth="50.0" text="0"/>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label prefWidth="230.0" text="Tension (V) :"/>
+                        <ListView fx:id="askListView" prefHeight="122.0" prefWidth="250.0"/>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label prefWidth="230.0" text="Fréquence porteuse (Hz)  :"/>
+                        <TextField fx:id="askFpField" prefWidth="100.0" text="0.0"/>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label prefWidth="230.0" text="Déphasage (rad) :"/>
+                        <TextField fx:id="askPhaseField" prefWidth="50.0" text="0.0"/>
+                        <Label text="× π"/>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+        <RadioButton fx:id="fskButton" mnemonicParsing="false" text="FSK-2" toggleGroup="$group"/>
+        <VBox fx:id="fskPane" spacing="5.0">
+            <padding>
+                <Insets left="50.0"/>
+            </padding>
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label prefWidth="230.0" text="Ordre :"/>
+                        <TextField fx:id="fskOrdreField" prefWidth="50.0" text="0"/>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label prefWidth="230.0" text="Tension (V) :"/>
+                        <TextField fx:id="fskTensionField" prefWidth="50.0" text="0.0"/>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label prefWidth="230.0" text="Fréquence (Hz) :"/>
+                        <ListView fx:id="fskListView" prefHeight="30.0" prefWidth="250.0"/>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label prefWidth="230.0" text="Déphasage (rad) :"/>
+                        <TextField fx:id="fskPhaseField" prefWidth="50.0" text="0.0"/>
+                        <Label text="× π"/>
+                    </children>
+                </HBox>
+            </children>
+            <VBox.margin>
+                <Insets bottom="10.0"/>
+            </VBox.margin>
+        </VBox>
+        <RadioButton fx:id="pskButton" mnemonicParsing="false" text="PSK-2" toggleGroup="$group"/>
+        <VBox fx:id="pskPane" spacing="5.0">
+            <padding>
+                <Insets left="50.0"/>
+            </padding>
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label prefWidth="230.0" text="Ordre :"/>
+                        <TextField fx:id="pskOrdreField" prefWidth="50.0" text="0"/>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label prefWidth="230.0" text="Tension (V) :"/>
+                        <TextField fx:id="pskTensionField" prefWidth="50.0" text="0.0"/>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label prefWidth="230.0" text="Fréquence porteuse (Hz)  :"/>
+                        <TextField fx:id="pskFpField" prefWidth="100.0" text="0.0"/>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label prefWidth="230.0" text="Déphasage (rad) :"/>
+                        <ListView fx:id="pskListView" prefHeight="30.0" prefWidth="250.0"/>
+                        <Label text="× π"/>
+                    </children>
+                </HBox>
+            </children>
+            <VBox.margin>
+                <Insets bottom="10.0"/>
+            </VBox.margin>
+        </VBox>
+        <RadioButton disable="true" mnemonicParsing="false" text="QAM-2" toggleGroup="$group"/>
+        <Label disable="true" text="Bientôt !">
+            <padding>
+                <Insets left="50.0"/>
+            </padding>
+            <VBox.margin>
+                <Insets bottom="10.0"/>
+            </VBox.margin>
+        </Label>
+        <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <children>
+                <Label prefWidth="280.0" text="Fréquence d'échantillonnage (Hz) :"/>
+                <TextField fx:id="fEchField" prefWidth="100.0" text="0.0"/>
+            </children>
+        </HBox>
+    </children>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+    </padding>
+</VBox>

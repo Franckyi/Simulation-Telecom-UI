@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.controlsfx.glyphfont.*?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0"
+      prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="fr.rtgrenoble.velascof.simtelui.controller.MainWindowController">
+    <children>
+        <MenuBar>
+            <menus>
+                <Menu mnemonicParsing="false" text="Fichier">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#actionMenuNouveau" text="Nouveau"/>
+                        <MenuItem fx:id="menuEnregistrer" disable="true" mnemonicParsing="false"
+                                  onAction="#actionMenuEnregistrer" text="Enregistrer"/>
+                        <MenuItem mnemonicParsing="false" onAction="#actionMenuEnregistrerSous"
+                                  text="Enregistrer sous..."/>
+                        <MenuItem mnemonicParsing="false" onAction="#actionMenuOuvrir" text="Ouvrir..."/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Simulation">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#actionMenuSimuler" text="Simuler"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Aide">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#actionMenuAide" text="Aide"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <HBox alignment="CENTER" prefWidth="800.0" spacing="45.0">
+            <children>
+                <CheckBox fx:id="coderCheckBox" mnemonicParsing="false" prefHeight="18.0" prefWidth="140.0"
+                          selected="true" text="Coder"/>
+                <CheckBox fx:id="modulerCheckBox" mnemonicParsing="false" prefHeight="18.0" prefWidth="140.0"
+                          selected="true" text="Moduler"/>
+            </children>
+            <VBox.margin>
+                <Insets bottom="5.0" top="10.0"/>
+            </VBox.margin>
+            <padding>
+                <Insets left="150.0"/>
+            </padding>
+        </HBox>
+        <HBox alignment="CENTER" prefWidth="800.0" spacing="10.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#actionDonnees" prefHeight="50.0" prefWidth="140.0"
+                        text="Données" textAlignment="CENTER" wrapText="true"/>
+                <Button mnemonicParsing="false" onAction="#actionAffichageDonnees" prefHeight="25.0" prefWidth="25.0">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" icon="ARROW_RIGHT"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="codageSourceButton" mnemonicParsing="false" onAction="#actionCodageSource"
+                        prefHeight="50.0" prefWidth="140.0" text="Codage source" textAlignment="CENTER"
+                        wrapText="true"/>
+                <Button fx:id="affichageCodageSourceButton" mnemonicParsing="false"
+                        onAction="#actionAffichageCodageSource" prefHeight="25.0" prefWidth="25.0">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" icon="ARROW_RIGHT"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="codageCanalButton" mnemonicParsing="false" onAction="#actionCodageCanal"
+                        prefHeight="50.0" prefWidth="140.0" text="Codage canal" textAlignment="CENTER" wrapText="true"/>
+                <Button fx:id="affichageCodageCanalButton" mnemonicParsing="false"
+                        onAction="#actionAffichageCodageCanal" prefHeight="25.0" prefWidth="25.0">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" icon="ARROW_RIGHT"/>
+                    </graphic>
+                </Button>
+            </children>
+            <VBox.margin>
+                <Insets bottom="5.0" top="5.0"/>
+            </VBox.margin>
+        </HBox>
+        <HBox alignment="CENTER_RIGHT" prefWidth="800.0" spacing="10.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#actionCanalTransmission" prefHeight="50.0" prefWidth="130.0"
+                        text="Canal de transmission" textAlignment="CENTER" wrapText="true"/>
+                <Button mnemonicParsing="false" onAction="#actionSimulation" prefHeight="50.0" prefWidth="50.0">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" fontSize="32" icon="PLAY" style="-fx-text-fill: green;"/>
+                    </graphic>
+                </Button>
+            </children>
+            <VBox.margin>
+                <Insets bottom="5.0" top="5.0"/>
+            </VBox.margin>
+            <padding>
+                <Insets right="25.0"/>
+            </padding>
+        </HBox>
+        <HBox alignment="CENTER" prefWidth="800.0" spacing="10.0">
+            <children>
+                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="140.0" text="Données"
+                        textAlignment="CENTER" wrapText="true"/>
+                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" icon="ARROW_LEFT"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="decodageSourceButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="140.0"
+                        text="Décodage source" textAlignment="CENTER" wrapText="true"/>
+                <Button fx:id="affichageDecodageCanalButton" mnemonicParsing="false"
+                        onAction="#actionAffichageDecodageCanal" prefHeight="25.0" prefWidth="25.0">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" icon="ARROW_LEFT"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="decodageCanalButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="140.0"
+                        text="Décodage canal" textAlignment="CENTER" wrapText="true"/>
+                <Button fx:id="affichageCanalTransmissionButton" mnemonicParsing="false"
+                        onAction="#actionAffichageCanalTransmission" prefHeight="25.0" prefWidth="25.0">
+                    <graphic>
+                        <Glyph fontFamily="FontAwesome" icon="ARROW_LEFT"/>
+                    </graphic>
+                </Button>
+            </children>
+            <VBox.margin>
+                <Insets bottom="5.0" top="5.0"/>
+            </VBox.margin>
+        </HBox>
+        <Separator prefWidth="200.0"/>
+        <ScrollPane fx:id="paramPane" hbarPolicy="NEVER" prefHeight="556.0" prefWidth="800.0"/>
+    </children>
+</VBox>
