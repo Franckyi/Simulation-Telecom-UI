@@ -7,9 +7,6 @@
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="800.0"
       spacing="5.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="fr.rtgrenoble.velascof.simtelui.controller.param.CanalTransmissionController">
-    <fx:define>
-        <ToggleGroup fx:id="bruit"/>
-    </fx:define>
     <children>
         <VBox alignment="TOP_CENTER" spacing="10.0">
             <children>

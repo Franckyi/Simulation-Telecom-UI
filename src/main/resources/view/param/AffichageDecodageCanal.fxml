@@ -83,7 +83,7 @@
                         <CheckBox fx:id="titreChronogrammeButton" mnemonicParsing="false" prefWidth="100.0"
                                   text="Titre : "/>
                         <TextField fx:id="titreChronogrammeField" prefWidth="560.0"
-                                   text="Chronogramme de la séquence codée"/>
+                                   text="Chronogramme de la séquence codée à travers le canal"/>
                     </children>
                 </HBox>
             </children>
@@ -150,7 +150,8 @@
                 <HBox alignment="CENTER_LEFT" layoutX="60.0" layoutY="103.0" spacing="10.0">
                     <children>
                         <CheckBox fx:id="titreSpectreButton" mnemonicParsing="false" prefWidth="100.0" text="Titre : "/>
-                        <TextField fx:id="titreSpectreField" prefWidth="560.0" text="Spectre de la séquence codée"/>
+                        <TextField fx:id="titreSpectreField" prefWidth="560.0"
+                                   text="Spectre de la séquence codée à travers le canal"/>
                     </children>
                 </HBox>
             </children>
@@ -161,7 +162,8 @@
                 <Insets bottom="10.0"/>
             </VBox.margin>
         </VBox>
-        <CheckBox fx:id="diagrammeOeilButton" mnemonicParsing="false" text="Afficher le diagramme de l'oeil"/>
+        <CheckBox fx:id="diagrammeOeilButton" mnemonicParsing="false"
+                  text="Afficher le diagramme de l'oeil à travers le canal"/>
         <VBox fx:id="diagrammeOeilPane" spacing="5.0">
             <padding>
                 <Insets left="50.0"/>
