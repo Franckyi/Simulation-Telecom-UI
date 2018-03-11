@@ -4,4 +4,8 @@ import fr.rtgrenoble.velascof.simtelui.controller.param.base.AffichageCodageCont
 
 public class AffichageDecodageCanalController extends AffichageCodageControllerBase {
 
+    @Override
+    protected String getName() {
+        return "aff_codage_canal";
+    }
 }

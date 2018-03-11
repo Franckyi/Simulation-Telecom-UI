@@ -34,14 +34,14 @@
                             <children>
                                 <CheckBox fx:id="tMinButton" mnemonicParsing="false" prefWidth="100.0"
                                           text="Tmin (s) :"/>
-                                <TextField fx:id="tMinField" prefWidth="100.0" text="0.0"/>
+                                <TextField fx:id="tMinField" prefWidth="100.0"/>
                             </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="10.0">
                             <children>
                                 <CheckBox fx:id="tMaxButton" mnemonicParsing="false" prefWidth="100.0"
                                           text="Tmax (s) :"/>
-                                <TextField fx:id="tMaxField" prefWidth="100.0" text="0.0"/>
+                                <TextField fx:id="tMaxField" prefWidth="100.0"/>
                             </children>
                         </HBox>
                     </children>
@@ -52,14 +52,14 @@
                             <children>
                                 <CheckBox fx:id="vMinChronogrammeButton" mnemonicParsing="false" prefWidth="100.0"
                                           text="Vmin (V) :"/>
-                                <TextField fx:id="vMinChronogrammeField" prefWidth="100.0" text="0.0"/>
+                                <TextField fx:id="vMinChronogrammeField" prefWidth="100.0"/>
                             </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="10.0">
                             <children>
                                 <CheckBox fx:id="vMaxChronogrammeButton" mnemonicParsing="false" prefWidth="100.0"
                                           text="Vmax (V) :"/>
-                                <TextField fx:id="vMaxChronogrammeField" prefWidth="100.0" text="0.0"/>
+                                <TextField fx:id="vMaxChronogrammeField" prefWidth="100.0"/>
                             </children>
                         </HBox>
                     </children>
@@ -68,22 +68,21 @@
                     <children>
                         <CheckBox mnemonicParsing="false" prefWidth="250.0" text="Légende horizontale : "
                                   fx:id="xLegendChronogrammeButton"/>
-                        <TextField prefWidth="210.0" text="Temps (s)" fx:id="xLegendChronogrammeField"/>
+                        <TextField prefWidth="210.0" fx:id="xLegendChronogrammeField"/>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" layoutX="60.0" layoutY="72.0" spacing="10.0">
                     <children>
                         <CheckBox fx:id="yLegendChronogrammeButton" mnemonicParsing="false" prefWidth="250.0"
                                   text="Légende verticale : "/>
-                        <TextField fx:id="yLegendChronogrammeField" prefWidth="210.0" text="Tension (V)"/>
+                        <TextField fx:id="yLegendChronogrammeField" prefWidth="210.0"/>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" layoutX="60.0" layoutY="103.0" spacing="10.0">
                     <children>
                         <CheckBox fx:id="titreChronogrammeButton" mnemonicParsing="false" prefWidth="100.0"
                                   text="Titre : "/>
-                        <TextField fx:id="titreChronogrammeField" prefWidth="560.0"
-                                   text="Chronogramme de la séquence codée"/>
+                        <TextField fx:id="titreChronogrammeField" prefWidth="560.0"/>
                     </children>
                 </HBox>
             </children>
@@ -110,7 +109,7 @@
                             <children>
                                 <CheckBox fx:id="fMaxButton" mnemonicParsing="false" prefWidth="100.0"
                                           text="Fmax (Hz) :"/>
-                                <TextField fx:id="fMaxField" prefWidth="100.0" text="0.0"/>
+                                <TextField fx:id="fMaxField" prefWidth="100.0"/>
                             </children>
                         </HBox>
                     </children>
@@ -128,7 +127,7 @@
                             <children>
                                 <CheckBox fx:id="vMaxSpectreButton" mnemonicParsing="false" prefWidth="100.0"
                                           text="Vmax (V) :"/>
-                                <TextField fx:id="vMaxSpectreField" prefWidth="100.0" text="0.0"/>
+                                <TextField fx:id="vMaxSpectreField" prefWidth="100.0"/>
                             </children>
                         </HBox>
                     </children>
@@ -137,20 +136,20 @@
                     <children>
                         <CheckBox mnemonicParsing="false" prefWidth="250.0" text="Légende horizontale : "
                                   fx:id="xLegendSpectreButton"/>
-                        <TextField prefWidth="210.0" text="Fréquence (Hz)" fx:id="xLegendSpectreField"/>
+                        <TextField prefWidth="210.0" fx:id="xLegendSpectreField"/>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" layoutX="60.0" layoutY="72.0" spacing="10.0">
                     <children>
                         <CheckBox fx:id="yLegendSpectreButton" mnemonicParsing="false" prefWidth="250.0"
                                   text="Légende verticale : "/>
-                        <TextField fx:id="yLegendSpectreField" prefWidth="210.0" text="Temps (s)"/>
+                        <TextField fx:id="yLegendSpectreField" prefWidth="210.0"/>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" layoutX="60.0" layoutY="103.0" spacing="10.0">
                     <children>
                         <CheckBox fx:id="titreSpectreButton" mnemonicParsing="false" prefWidth="100.0" text="Titre : "/>
-                        <TextField fx:id="titreSpectreField" prefWidth="560.0" text="Spectre de la séquence codée"/>
+                        <TextField fx:id="titreSpectreField" prefWidth="560.0"/>
                     </children>
                 </HBox>
             </children>
@@ -170,15 +169,14 @@
                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                     <children>
                         <Label prefWidth="150.0" text="Nombre d'yeux :"/>
-                        <TextField fx:id="nbYeuxField" prefWidth="50.0" text="1"/>
+                        <TextField fx:id="nbYeuxField" prefWidth="50.0"/>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                     <children>
                         <CheckBox fx:id="titreDiagrammeOeilButton" mnemonicParsing="false" prefWidth="100.0"
                                   text="Titre : "/>
-                        <TextField fx:id="titreDiagrammeOeilField" prefWidth="560.0"
-                                   text="Diagramme de l'oeil de la séquence codée"/>
+                        <TextField fx:id="titreDiagrammeOeilField" prefWidth="560.0"/>
                     </children>
                 </HBox>
             </children>

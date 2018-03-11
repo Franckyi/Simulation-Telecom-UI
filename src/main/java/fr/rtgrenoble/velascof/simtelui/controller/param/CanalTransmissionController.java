@@ -1,7 +1,7 @@
 package fr.rtgrenoble.velascof.simtelui.controller.param;
 
+import fr.rtgrenoble.velascof.simtelui.controller.param.base.ParamControllerBase;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -13,7 +13,9 @@ import org.json.JSONObject;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CanalTransmissionController implements IParamController, Initializable {
+import static fr.rtgrenoble.velascof.simtelui.Util.toDouble;
+
+public class CanalTransmissionController extends ParamControllerBase {
 
     @FXML
     private CheckBox bruitButton;
@@ -28,7 +30,7 @@ public class CanalTransmissionController implements IParamController, Initializa
     private RadioButton bruitGaussienButton;
 
     @FXML
-    private RadioButton bruitBlancButton;
+    private RadioButton bruitAleatoireButton;
 
     @FXML
     private TextField intensiteField;
@@ -39,20 +41,37 @@ public class CanalTransmissionController implements IParamController, Initializa
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         bruitPane.disableProperty().bind(bruitButton.selectedProperty().not());
-    }
-
-    @Override
-    public boolean validate() {
-        return true;
+        registerPositiveDoubleValidator(intensiteField, bruitButton);
+        getValidationSupport().initInitialDecoration();
     }
 
     @Override
     public void toJson(JSONObject json) {
-
+        JSONObject canal = new JSONObject();
+        if (bruitButton.isSelected()) {
+            JSONObject bruit = new JSONObject();
+            bruit.put("type", bruitGaussienButton.isSelected() ? "gaussien" : "aleatoire");
+            bruit.put("intensite", toDouble(intensiteField.getText()));
+            canal.put("bruit", bruit);
+        }
+        json.put("canal", canal);
     }
 
     @Override
     public void fromJson(JSONObject json) throws JSONException {
-
+        JSONObject canal = json.getJSONObject("canal");
+        if (canal.has("bruit")) {
+            bruitButton.setSelected(true);
+            JSONObject bruit = canal.getJSONObject("bruit");
+            switch (bruit.getString("type")) {
+                case "gaussien":
+                    bruitGaussienButton.setSelected(true);
+                    break;
+                case "aleatoire":
+                    bruitAleatoireButton.setSelected(true);
+                    break;
+            }
+            intensiteField.setText(Double.toString(bruit.getDouble("intensite")));
+        }
     }
 }

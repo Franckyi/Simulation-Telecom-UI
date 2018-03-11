@@ -32,13 +32,13 @@
                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                     <children>
                         <Label prefWidth="60.0" text="V0 (V) :"/>
-                        <TextField fx:id="nrzV0Field" prefWidth="50.0" text="0.0"/>
+                        <TextField fx:id="nrzV0Field" prefWidth="50.0"/>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" spacing="10.0">
                     <children>
                         <Label prefWidth="60.0" text="V1 (V) :"/>
-                        <TextField fx:id="nrzV1Field" prefWidth="50.0" text="0.0"/>
+                        <TextField fx:id="nrzV1Field" prefWidth="50.0"/>
                     </children>
                 </HBox>
             </children>
@@ -55,13 +55,13 @@
                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                     <children>
                         <Label prefWidth="60.0" text="V0 (V) :"/>
-                        <TextField fx:id="rzV0Field" prefWidth="50.0" text="0.0"/>
+                        <TextField fx:id="rzV0Field" prefWidth="50.0"/>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                     <children>
                         <Label prefWidth="60.0" text="V1 (V) :"/>
-                        <TextField fx:id="rzV1Field" prefWidth="50.0" text="0.0"/>
+                        <TextField fx:id="rzV1Field" prefWidth="50.0"/>
                     </children>
                 </HBox>
             </children>
@@ -78,13 +78,13 @@
                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                     <children>
                         <Label prefWidth="60.0" text="V+ (V) :"/>
-                        <TextField fx:id="manchesterVpField" prefWidth="50.0" text="0.0"/>
+                        <TextField fx:id="manchesterVpField" prefWidth="50.0"/>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" spacing="10.0">
                     <children>
                         <Label prefWidth="60.0" text="V- (V) :"/>
-                        <TextField fx:id="manchesterVmField" prefWidth="50.0" text="0.0"/>
+                        <TextField fx:id="manchesterVmField" prefWidth="50.0"/>
                     </children>
                 </HBox>
             </children>
@@ -101,25 +101,25 @@
                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                     <children>
                         <Label prefWidth="60.0" text="V00 (V) :"/>
-                        <TextField fx:id="_2b1qV00Field" prefWidth="50.0" text="0.0"/>
+                        <TextField fx:id="_2b1qV00Field" prefWidth="50.0"/>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" layoutX="60.0" layoutY="10.0" spacing="10.0">
                     <children>
                         <Label prefWidth="60.0" text="V01 (V) :"/>
-                        <TextField fx:id="_2b1qV01Field" prefWidth="50.0" text="0.0"/>
+                        <TextField fx:id="_2b1qV01Field" prefWidth="50.0"/>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" layoutX="60.0" layoutY="10.0" spacing="10.0">
                     <children>
                         <Label prefWidth="60.0" text="V10 (V) :"/>
-                        <TextField fx:id="_2b1qV10Field" prefWidth="50.0" text="0.0"/>
+                        <TextField fx:id="_2b1qV10Field" prefWidth="50.0"/>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" layoutX="230.0" layoutY="10.0" spacing="10.0">
                     <children>
                         <Label prefWidth="60.0" text="V11 (V) :"/>
-                        <TextField fx:id="_2b1qV11Field" prefWidth="50.0" text="0.0"/>
+                        <TextField fx:id="_2b1qV11Field" prefWidth="50.0"/>
                     </children>
                 </HBox>
             </children>
@@ -133,7 +133,7 @@
         <HBox alignment="CENTER_LEFT" spacing="10.0">
             <children>
                 <Label prefWidth="280.0" text="Fréquence d'échantillonnage (Hz) :"/>
-                <TextField fx:id="fEchField" prefWidth="100.0" text="0.0"/>
+                <TextField fx:id="fEchField" prefWidth="100.0"/>
             </children>
         </HBox>
     </children>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<VBox alignment="TOP_CENTER" prefWidth="700.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.141"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="fr.rtgrenoble.velascof.simtelui.controller.ConfigurationController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+    <children>
+        <Label text="Configuration">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Label>
+        <VBox spacing="10.0">
+            <children>
+                <CheckBox fx:id="afficherSortieButton" mnemonicParsing="false"
+                          text="Afficher la sortie du programme Python"/>
+                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                    <children>
+                        <Label prefWidth="270.0" text="Chemin vers le programme fichier.py :"/>
+                        <TextField fx:id="cheminProgrammeField" prefHeight="26.0" prefWidth="285.0"/>
+                        <Button mnemonicParsing="false" onAction="#actionParcourir" prefWidth="85.0" text="Parcourir"/>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+        <ButtonBar prefHeight="40.0" prefWidth="200.0">
+            <buttons>
+                <Button mnemonicParsing="false" onAction="#actionOk" text="OK"/>
+                <Button mnemonicParsing="false" onAction="#actionAnnuler" text="Annuler"/>
+                <Button fx:id="appliquerButton" mnemonicParsing="false" onAction="#actionAppliquer" text="Appliquer"/>
+            </buttons>
+        </ButtonBar>
+    </children>
+</VBox>

@@ -1,12 +1,12 @@
 package fr.rtgrenoble.velascof.simtelui.controller.param;
 
 import fr.rtgrenoble.velascof.simtelui.Main;
+import fr.rtgrenoble.velascof.simtelui.controller.param.base.ParamControllerBase;
 import fr.rtgrenoble.velascof.simtelui.model.ModulationListItem;
 import fr.rtgrenoble.velascof.simtelui.view.ModulationListCellView;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -19,7 +19,9 @@ import org.json.JSONObject;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CodageCanalController implements IParamController, Initializable {
+import static fr.rtgrenoble.velascof.simtelui.Util.*;
+
+public class CodageCanalController extends ParamControllerBase {
 
     @FXML
     private ToggleGroup group;
@@ -87,28 +89,30 @@ public class CodageCanalController implements IParamController, Initializable {
         fskPane.disableProperty().bind(fskButton.selectedProperty().not());
         pskPane.disableProperty().bind(pskButton.selectedProperty().not());
         askOrdreField.textProperty().addListener(new ModulationOrdreFieldListener(askOrdreField, askListView, "V"));
-        askListView.setCellFactory(lv -> new ModulationListCellView());
+        askListView.setCellFactory(lv -> new ModulationListCellView(this, askButton));
         fskOrdreField.textProperty().addListener(new ModulationOrdreFieldListener(fskOrdreField, fskListView, "F"));
-        fskListView.setCellFactory(lv -> new ModulationListCellView());
+        fskListView.setCellFactory(lv -> new ModulationListCellView(this, fskButton));
         pskOrdreField.textProperty().addListener(new ModulationOrdreFieldListener(pskOrdreField, pskListView, "P"));
-        pskListView.setCellFactory(lv -> new ModulationListCellView());
+        pskListView.setCellFactory(lv -> new ModulationListCellView(this, pskButton));
         askButton.setOnAction(event -> updateAsk());
         fskButton.setOnAction(event -> updateFsk());
         pskButton.setOnAction(event -> updatePsk());
+        registerOrderValidator(askOrdreField, askButton);
+        registerPositiveDoubleValidator(askFpField, askButton);
+        registerDoubleValidator(askPhaseField, askButton);
+        registerOrderValidator(fskOrdreField, fskButton);
+        registerDoubleValidator(fskTensionField, fskButton);
+        registerDoubleValidator(fskPhaseField, fskButton);
+        registerOrderValidator(pskOrdreField, pskButton);
+        registerDoubleValidator(pskTensionField, pskButton);
+        registerPositiveDoubleValidator(pskFpField, pskButton);
+        registerPositiveDoubleValidator(fEchField);
+        getValidationSupport().initInitialDecoration();
     }
 
     @Override
     public boolean validate() {
-        if (!Main.root.getController().modulerCheckBox.isSelected()) return true;
-        if (!isDouble(fEchField)) return false;
-        if (group.getSelectedToggle() == askButton) {
-            return askListView.getItems().stream().allMatch(ModulationListItem::isValid) && isDouble(askFpField) && isDouble(askPhaseField);
-        } else if (group.getSelectedToggle() == fskButton) {
-            return isDouble(fskTensionField) && fskListView.getItems().stream().allMatch(ModulationListItem::isValid) && isDouble(fskPhaseField);
-        } else if (group.getSelectedToggle() == pskButton) {
-            return isDouble(pskTensionField) && isDouble(pskFpField) && pskListView.getItems().stream().allMatch(ModulationListItem::isValid);
-        }
-        return false;
+        return !Main.root.getController().modulerCheckBox.isSelected() || super.validate();
     }
 
     @Override
@@ -146,23 +150,23 @@ public class CodageCanalController implements IParamController, Initializable {
             case "ask":
                 group.selectToggle(askButton);
                 createListView(modulation.getJSONArray("v"), askOrdreField, askListView, "V");
-                askFpField.setText(String.valueOf(modulation.getDouble("fp")));
-                askPhaseField.setText(String.valueOf(modulation.getDouble("p")));
+                askFpField.setText(Double.toString(modulation.getDouble("fp")));
+                askPhaseField.setText(Double.toString(modulation.getDouble("p")));
                 break;
             case "fsk":
                 group.selectToggle(fskButton);
-                fskTensionField.setText(String.valueOf(modulation.getDouble("v")));
+                fskTensionField.setText(Double.toString(modulation.getDouble("v")));
                 createListView(modulation.getJSONArray("f"), fskOrdreField, fskListView, "F");
-                fskPhaseField.setText(String.valueOf(modulation.getDouble("p")));
+                fskPhaseField.setText(Double.toString(modulation.getDouble("p")));
                 break;
             case "psk":
                 group.selectToggle(pskButton);
-                pskTensionField.setText(String.valueOf(modulation.getDouble("v")));
-                pskFpField.setText(String.valueOf(modulation.getDouble("fp")));
+                pskTensionField.setText(Double.toString(modulation.getDouble("v")));
+                pskFpField.setText(Double.toString(modulation.getDouble("fp")));
                 createListView(modulation.getJSONArray("p"), pskOrdreField, pskListView, "P");
                 break;
         }
-        fEchField.setText(String.valueOf(modulation.getDouble("fech")));
+        fEchField.setText(Double.toString(modulation.getDouble("fech")));
     }
 
     private void updateAsk() {
@@ -206,9 +210,9 @@ public class CodageCanalController implements IParamController, Initializable {
 
         @Override
         public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-            if (isInteger(ordreField)) {
+            if (isInteger(ordreField.getText())) {
                 int ordre = Integer.parseInt(ordreField.getText());
-                if (ordre != 1 && Math.log(ordre) / Math.log(2) == (int) (Math.log(ordre) / Math.log(2))) {
+                if (isOrder(ordre)) {
                     listView.getItems().clear();
                     for (int i = 0; i < ordre; i++) {
                         listView.getItems().add(new ModulationListItem(prefix, ordre, i));

@@ -1,8 +1,8 @@
 package fr.rtgrenoble.velascof.simtelui.controller.param;
 
 import fr.rtgrenoble.velascof.simtelui.Main;
+import fr.rtgrenoble.velascof.simtelui.controller.param.base.ParamControllerBase;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -13,7 +13,9 @@ import org.json.JSONObject;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CodageSourceController implements IParamController, Initializable {
+import static fr.rtgrenoble.velascof.simtelui.Util.toDouble;
+
+public class CodageSourceController extends ParamControllerBase {
 
     @FXML
     private ToggleGroup group;
@@ -76,27 +78,28 @@ public class CodageSourceController implements IParamController, Initializable {
     private TextField fEchField;
 
     @Override
+    public boolean validate() {
+        return !Main.root.getController().coderCheckBox.isSelected() || super.validate();
+    }
+
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         nrzPane.disableProperty().bind(nrzButton.selectedProperty().not());
         rzPane.disableProperty().bind(rzButton.selectedProperty().not());
         manchesterPane.disableProperty().bind(manchesterButton.selectedProperty().not());
         _2b1qPane.disableProperty().bind(_2b1qButton.selectedProperty().not());
-    }
-
-    @Override
-    public boolean validate() {
-        if (!Main.root.getController().coderCheckBox.isSelected()) return true;
-        if (!isDouble(fEchField)) return false;
-        if (group.getSelectedToggle() == nrzButton) {
-            return isDouble(nrzV0Field) && isDouble(nrzV1Field);
-        } else if (group.getSelectedToggle() == rzButton) {
-            return isDouble(rzV0Field) && isDouble(rzV1Field);
-        } else if (group.getSelectedToggle() == manchesterButton) {
-            return isDouble(manchesterVpField) && isDouble(manchesterVmField);
-        } else if (group.getSelectedToggle() == _2b1qButton) {
-            return isDouble(_2b1qV00Field) && isDouble(_2b1qV01Field) && isDouble(_2b1qV10Field) && isDouble(_2b1qV11Field);
-        }
-        return false;
+        registerDoubleValidator(nrzV0Field, nrzButton);
+        registerDoubleValidator(nrzV1Field, nrzButton);
+        registerDoubleValidator(rzV0Field, rzButton);
+        registerDoubleValidator(rzV1Field, rzButton);
+        registerDoubleValidator(manchesterVpField, manchesterButton);
+        registerDoubleValidator(manchesterVmField, manchesterButton);
+        registerDoubleValidator(_2b1qV00Field, _2b1qButton);
+        registerDoubleValidator(_2b1qV01Field, _2b1qButton);
+        registerDoubleValidator(_2b1qV10Field, _2b1qButton);
+        registerDoubleValidator(_2b1qV11Field, _2b1qButton);
+        registerPositiveDoubleValidator(fEchField);
+        getValidationSupport().initInitialDecoration();
     }
 
     @Override
@@ -136,27 +139,27 @@ public class CodageSourceController implements IParamController, Initializable {
         switch (codage.getString("type")) {
             case "nrz":
                 group.selectToggle(nrzButton);
-                nrzV0Field.setText(String.valueOf(codage.getDouble("v0")));
-                nrzV1Field.setText(String.valueOf(codage.getDouble("v1")));
+                nrzV0Field.setText(Double.toString(codage.getDouble("v0")));
+                nrzV1Field.setText(Double.toString(codage.getDouble("v1")));
                 break;
             case "rz":
                 group.selectToggle(rzButton);
-                rzV0Field.setText(String.valueOf(codage.getDouble("v0")));
-                rzV1Field.setText(String.valueOf(codage.getDouble("v1")));
+                rzV0Field.setText(Double.toString(codage.getDouble("v0")));
+                rzV1Field.setText(Double.toString(codage.getDouble("v1")));
                 break;
             case "manchester":
                 group.selectToggle(manchesterButton);
-                manchesterVpField.setText(String.valueOf(codage.getDouble("vp")));
-                manchesterVmField.setText(String.valueOf(codage.getDouble("vm")));
+                manchesterVpField.setText(Double.toString(codage.getDouble("vp")));
+                manchesterVmField.setText(Double.toString(codage.getDouble("vm")));
                 break;
             case "2b1q":
                 group.selectToggle(_2b1qButton);
-                _2b1qV00Field.setText(String.valueOf(codage.getDouble("v00")));
-                _2b1qV01Field.setText(String.valueOf(codage.getDouble("v01")));
-                _2b1qV10Field.setText(String.valueOf(codage.getDouble("v10")));
-                _2b1qV11Field.setText(String.valueOf(codage.getDouble("v11")));
+                _2b1qV00Field.setText(Double.toString(codage.getDouble("v00")));
+                _2b1qV01Field.setText(Double.toString(codage.getDouble("v01")));
+                _2b1qV10Field.setText(Double.toString(codage.getDouble("v10")));
+                _2b1qV11Field.setText(Double.toString(codage.getDouble("v11")));
                 break;
         }
-        fEchField.setText(String.valueOf(codage.getDouble("fech")));
+        fEchField.setText(Double.toString(codage.getDouble("fech")));
     }
 }

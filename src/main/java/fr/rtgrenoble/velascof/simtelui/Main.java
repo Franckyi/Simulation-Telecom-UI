@@ -1,7 +1,10 @@
 package fr.rtgrenoble.velascof.simtelui;
 
+import fr.rtgrenoble.velascof.simtelui.controller.ConfigurationController;
 import fr.rtgrenoble.velascof.simtelui.controller.MainWindowController;
 import fr.rtgrenoble.velascof.simtelui.controller.param.*;
+import fr.rtgrenoble.velascof.simtelui.controller.param.base.ParamControllerBase;
+import fr.rtgrenoble.velascof.simtelui.view.ConsoleView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -14,9 +17,13 @@ import java.util.concurrent.Executors;
 public class Main extends Application {
 
     public static final ExecutorService EXECUTOR_SERVICE = Executors.newCachedThreadPool();
+    public static final File CFG_FILE = new File("UI_CONFIG.json");
+    public static final Configuration configuration = new Configuration();
 
-    public static Stage stage;
+    public static Stage primaryStage, configStage, consoleStage;
     public static ControllerView<MainWindowController> root;
+    public static ControllerView<ConfigurationController> config;
+    public static ConsoleView console;
     public static ControllerView<DonneesController> paramDonnees;
     public static ControllerView<AffichageDonneesController> paramAffichageDonnees;
     public static ControllerView<CodageSourceController> paramCodageSource;
@@ -26,29 +33,46 @@ public class Main extends Application {
     public static ControllerView<CanalTransmissionController> paramCanalTransmission;
     public static ControllerView<AffichageCanalTransmissionController> paramAffichageCanalTransmission;
     public static ControllerView<AffichageDecodageCanalController> paramAffichageDecodageCanal;
-    public static IParamController[] parametres;
+    public static ParamControllerBase[] parametres;
 
     public static File currentFile;
 
     public static void main(String[] args) {
+        if (CFG_FILE.exists()) {
+            configuration.load();
+        } else {
+            try {
+                if (CFG_FILE.getParentFile() != null) {
+                    CFG_FILE.getParentFile().mkdirs();
+                }
+                CFG_FILE.createNewFile();
+                configuration.setShowScriptOutput(false);
+                configuration.setScriptFile(new File(new File(".").getAbsolutePath(), "fichier.py").getAbsolutePath());
+                configuration.save();
+            } catch (IOException e) {
+                System.out.println("!!! Erreur d'initialisation de la configuration !!!");
+                e.printStackTrace();
+            }
+        }
         launch(args);
     }
 
-    public void start(Stage stage) throws Exception {
-        Main.stage = stage;
-        start();
-    }
-
     public static void updateTitle() {
-        stage.setTitle("Simulation Télécom UI" + (currentFile != null ? " - " + currentFile.getName() : ""));
+        primaryStage.setTitle("Simulation Télécom UI" + (currentFile != null ? " - " + currentFile.getName() : ""));
     }
 
     public static void start() throws IOException {
         load();
-        stage.setScene(new Scene(root.getView()));
-        stage.setResizable(false);
+        primaryStage.setScene(new Scene(root.getView()));
+        primaryStage.setResizable(false);
+        configStage.setScene(new Scene(config.getView()));
+        configStage.setResizable(false);
+        configStage.setAlwaysOnTop(true);
+        configStage.setTitle("Simulation Télécom UI - Configuration");
+        consoleStage.setResizable(false);
+        consoleStage.setTitle("Simulation Télécom UI - Console");
         updateTitle();
-        stage.show();
+        primaryStage.show();
     }
 
     private static void load() throws IOException {
@@ -61,10 +85,32 @@ public class Main extends Application {
         paramCanalTransmission = ControllerView.of("param/CanalTransmission.fxml");
         paramAffichageCanalTransmission = ControllerView.of("param/AffichageCanalTransmission.fxml");
         paramAffichageDecodageCanal = ControllerView.of("param/AffichageDecodageCanal.fxml");
-        parametres = new IParamController[]{paramDonnees.getController(), paramAffichageDonnees.getController(), paramCodageSource.getController(),
+        parametres = new ParamControllerBase[]{paramDonnees.getController(), paramAffichageDonnees.getController(), paramCodageSource.getController(),
                 paramAffichageCodageSource.getController(), paramCodageCanal.getController(), paramAffichageCodageCanal.getController(),
                 paramCanalTransmission.getController(), paramAffichageCanalTransmission.getController(), paramAffichageDecodageCanal.getController()};
         root = ControllerView.of("MainWindow.fxml");
+        config = ControllerView.of("Config.fxml");
     }
 
+    public void start(Stage stage) throws Exception {
+        primaryStage = stage;
+        primaryStage.setOnCloseRequest(event -> {
+            configStage.close();
+            consoleStage.close();
+        });
+        configStage = new Stage();
+        consoleStage = new Stage();
+        start();
+    }
+
+    @Override
+    public void stop() {
+        EXECUTOR_SERVICE.shutdown();
+    }
+
+    public static void initConsole() {
+        console = new ConsoleView();
+        consoleStage.setScene(new Scene(console, 800, 400));
+        consoleStage.show();
+    }
 }

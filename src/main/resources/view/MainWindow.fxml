@@ -30,6 +30,11 @@
                         <MenuItem mnemonicParsing="false" onAction="#actionMenuAide" text="Aide"/>
                     </items>
                 </Menu>
+                <Menu mnemonicParsing="false" text="Paramètres">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#actionMenuConfig" text="Configuration"/>
+                    </items>
+                </Menu>
             </menus>
         </MenuBar>
         <HBox alignment="CENTER" prefWidth="800.0" spacing="45.0">

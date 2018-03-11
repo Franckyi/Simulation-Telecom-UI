@@ -1,32 +1,45 @@
 package fr.rtgrenoble.velascof.simtelui.task;
 
 import fr.rtgrenoble.velascof.simtelui.Main;
-import fr.rtgrenoble.velascof.simtelui.controller.param.IParamController;
+import fr.rtgrenoble.velascof.simtelui.controller.param.base.ParamControllerBase;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Stream;
 
 public class SimulationTask extends TaskBase {
 
-    private static final String PATH = "/home/user/python/Simulation-Telecom/src";
+    public static Process p;
 
     @Override
     protected void call0() throws IOException {
-        if (Stream.of(Main.parametres).allMatch(IParamController::validate)) {
+        if (Stream.of(Main.parametres).allMatch(ParamControllerBase::validate)) {
             File file = File.createTempFile(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE), null);
             new SaveTask(file).run();
-            ProcessBuilder pb = new ProcessBuilder(String.format("%s/fichier.py", PATH), file.getAbsolutePath());
-            pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
-            pb.redirectError(ProcessBuilder.Redirect.INHERIT);
-            Process p = pb.start();
+            ProcessBuilder pb = new ProcessBuilder(Main.configuration.getScriptFile(), file.getAbsolutePath());
+            if (!Main.configuration.isShowScriptOutput()) {
+                pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+                pb.redirectError(ProcessBuilder.Redirect.INHERIT);
+            }
+            p = pb.start();
+            if (Main.configuration.isShowScriptOutput()) {
+                Platform.runLater(Main::initConsole);
+                try (BufferedReader input = new BufferedReader(new InputStreamReader(new SequenceInputStream(p.getInputStream(), p.getErrorStream())))) {
+                    String line;
+                    while ((line = input.readLine()) != null) {
+                        String finalLine = line;
+                        Platform.runLater(() -> Main.console.appendLine(finalLine));
+                    }
+                    input.close();
+                }
+            }
         } else {
-            Platform.runLater(() -> new Alert(Alert.AlertType.ERROR, "Vérifiez vos informations", ButtonType.OK).show());
+            Platform.runLater(() -> new Alert(Alert.AlertType.ERROR, "Certaines informations sont erronnées.", ButtonType.OK).show());
         }
     }
+
 }

@@ -1,16 +1,19 @@
 package fr.rtgrenoble.velascof.simtelui.controller.param.base;
 
-import fr.rtgrenoble.velascof.simtelui.controller.param.IParamController;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.layout.VBox;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public abstract class AffichageControllerBase implements Initializable, IParamController {
+import static fr.rtgrenoble.velascof.simtelui.Util.toDouble;
+
+public abstract class AffichageControllerBase extends ParamControllerBase {
 
     @FXML
     protected CheckBox chronogrammeButton;
@@ -126,6 +129,91 @@ public abstract class AffichageControllerBase implements Initializable, IParamCo
         xLegendSpectreField.disableProperty().bind(xLegendSpectreButton.selectedProperty().not());
         yLegendSpectreField.disableProperty().bind(yLegendSpectreButton.selectedProperty().not());
         titreSpectreField.disableProperty().bind(titreSpectreButton.selectedProperty().not());
+        registerPositiveDoubleValidator(tMinField, chronogrammeButton, tMinButton);
+        registerPositiveDoubleValidator(tMaxField, chronogrammeButton, tMaxButton);
+        registerDoubleValidator(vMinChronogrammeField, chronogrammeButton, vMinChronogrammeButton);
+        registerDoubleValidator(vMaxChronogrammeField, chronogrammeButton, vMaxChronogrammeButton);
+        registerNotEmptyValidator(xLegendChronogrammeField, chronogrammeButton, xLegendChronogrammeButton);
+        registerNotEmptyValidator(yLegendChronogrammeField, chronogrammeButton, yLegendChronogrammeButton);
+        registerNotEmptyValidator(titreChronogrammeField, chronogrammeButton, titreChronogrammeButton);
+        registerPositiveDoubleValidator(fMinField, spectreButton, fMinButton);
+        registerPositiveDoubleValidator(fMaxField, spectreButton, fMaxButton);
+        registerDoubleValidator(vMinSpectreField, spectreButton, vMinSpectreButton);
+        registerDoubleValidator(vMaxSpectreField, spectreButton, vMaxSpectreButton);
+        registerNotEmptyValidator(xLegendSpectreField, spectreButton, xLegendSpectreButton);
+        registerNotEmptyValidator(yLegendSpectreField, spectreButton, yLegendSpectreButton);
+        registerNotEmptyValidator(titreSpectreField, spectreButton, titreSpectreButton);
     }
+
+    @Override
+    public void fromJson(JSONObject json) throws JSONException {
+        JSONObject aff = json.getJSONObject(getName());
+        if (aff.has("chronogramme")) {
+            chronogrammeButton.setSelected(true);
+            JSONObject chronogramme = aff.getJSONObject("chronogramme");
+            fromDouble(chronogramme, tMinButton, tMinField, "tmin");
+            fromDouble(chronogramme, tMaxButton, tMaxField, "tmax");
+            fromDouble(chronogramme, vMinChronogrammeButton, vMinChronogrammeField, "vmin");
+            fromDouble(chronogramme, vMaxChronogrammeButton, vMaxChronogrammeField, "vmax");
+            fromText(chronogramme, xLegendChronogrammeButton, xLegendChronogrammeField, "xlegend");
+            fromText(chronogramme, yLegendChronogrammeButton, yLegendChronogrammeField, "ylegend");
+            fromText(chronogramme, titreChronogrammeButton, titreChronogrammeField, "titre");
+        }
+        if (aff.has("spectre")) {
+            spectreButton.setSelected(true);
+            JSONObject spectre = aff.getJSONObject("spectre");
+            fromDouble(spectre, fMinButton, fMinField, "tmin");
+            fromDouble(spectre, fMaxButton, fMaxField, "tmax");
+            fromDouble(spectre, vMinSpectreButton, vMinSpectreField, "vmin");
+            fromDouble(spectre, vMaxSpectreButton, vMaxSpectreField, "vmax");
+            fromText(spectre, xLegendSpectreButton, xLegendSpectreField, "xlegend");
+            fromText(spectre, yLegendSpectreButton, yLegendSpectreField, "ylegend");
+            fromText(spectre, titreSpectreButton, titreSpectreField, "titre");
+        }
+    }
+
+    protected void fromText(JSONObject json, CheckBox b, TextInputControl c, String name) {
+        if (json.has(name)) {
+            b.setSelected(true);
+            c.setText(json.getString(name));
+        }
+    }
+
+    protected void fromDouble(JSONObject json, CheckBox b, TextInputControl c, String name) {
+        if (json.has(name)) {
+            b.setSelected(true);
+            c.setText(Double.toString(json.getDouble(name)));
+        }
+    }
+
+    @Override
+    public void toJson(JSONObject json) {
+        JSONObject aff = new JSONObject();
+        if (chronogrammeButton.isSelected()) {
+            JSONObject chronogramme = new JSONObject();
+            if (tMinButton.isSelected()) chronogramme.put("tmin", toDouble(tMinField));
+            if (tMaxButton.isSelected()) chronogramme.put("tmax", toDouble(tMaxField));
+            if (vMinChronogrammeButton.isSelected()) chronogramme.put("vmin", toDouble(vMinChronogrammeField));
+            if (vMaxChronogrammeButton.isSelected()) chronogramme.put("vmax", toDouble(vMaxChronogrammeField));
+            if (xLegendChronogrammeButton.isSelected()) chronogramme.put("xlegend", xLegendChronogrammeField.getText());
+            if (yLegendChronogrammeButton.isSelected()) chronogramme.put("ylegend", yLegendChronogrammeField.getText());
+            if (titreChronogrammeButton.isSelected()) chronogramme.put("titre", titreChronogrammeField.getText());
+            aff.put("chronogramme", chronogramme);
+        }
+        if (spectreButton.isSelected()) {
+            JSONObject spectre = new JSONObject();
+            if (fMinButton.isSelected()) spectre.put("fmin", toDouble(fMinField));
+            if (fMaxButton.isSelected()) spectre.put("fmax", toDouble(fMaxField));
+            if (vMinSpectreButton.isSelected()) spectre.put("vmin", toDouble(vMinSpectreField));
+            if (vMaxSpectreButton.isSelected()) spectre.put("vmax", toDouble(vMaxSpectreField));
+            if (xLegendSpectreButton.isSelected()) spectre.put("xlegend", xLegendSpectreField.getText());
+            if (yLegendSpectreButton.isSelected()) spectre.put("ylegend", yLegendSpectreField.getText());
+            if (titreSpectreButton.isSelected()) spectre.put("titre", titreSpectreField.getText());
+            aff.put("spectre", spectre);
+        }
+        json.put(getName(), aff);
+    }
+
+    protected abstract String getName();
 
 }

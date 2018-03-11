@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="800.0"
@@ -27,6 +27,21 @@
             </children>
         </VBox>
         <CheckBox fx:id="afficherSequenceBox" mnemonicParsing="false"
-                  text="Afficher la séquence binaire sous forme de texte"/>
+                  text="Afficher la séquence binaire sous forme de texte">
+            <VBox.margin>
+                <Insets bottom="10.0"/>
+            </VBox.margin>
+        </CheckBox>
+        <CheckBox fx:id="afficherRepartitionBox" mnemonicParsing="false"
+                  text="Afficher la répartition des symboles dans la séquence"/>
+        <HBox fx:id="afficherRepartitionPane" alignment="CENTER_LEFT" spacing="10.0">
+            <children>
+                <Label prefWidth="150.0" text="Bits par symbole :"/>
+                <TextField fx:id="bpsField" prefWidth="50.0"/>
+            </children>
+            <padding>
+                <Insets left="50.0"/>
+            </padding>
+        </HBox>
     </children>
 </VBox>

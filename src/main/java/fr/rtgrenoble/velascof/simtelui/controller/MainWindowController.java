@@ -81,7 +81,7 @@ public class MainWindowController implements Initializable {
         chooser.setInitialFileName("simulation.json");
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichier de simulation JSON", "*.json"));
         chooser.setTitle("Enregistrer sous...");
-        File file = chooser.showSaveDialog(Main.stage);
+        File file = chooser.showSaveDialog(Main.primaryStage);
         if (file != null) {
             Main.EXECUTOR_SERVICE.submit(new SaveTask(file));
             Main.currentFile = file;
@@ -95,7 +95,7 @@ public class MainWindowController implements Initializable {
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichier de simulation JSON", "*.json"));
         chooser.setTitle("Ouvrir...");
-        File file = chooser.showOpenDialog(Main.stage);
+        File file = chooser.showOpenDialog(Main.primaryStage);
         if (file != null) {
             Main.EXECUTOR_SERVICE.submit(new LoadTask(file));
             Main.currentFile = file;
@@ -107,6 +107,11 @@ public class MainWindowController implements Initializable {
     @FXML
     void actionMenuSimuler(ActionEvent event) {
         simuler();
+    }
+
+    @FXML
+    void actionMenuConfig(ActionEvent event) {
+        Main.configStage.show();
     }
 
     @FXML
@@ -165,14 +170,18 @@ public class MainWindowController implements Initializable {
         pane0.setContentText("Bienvenue dans la fenêtre d'aide. Pour l'instant, elle est un peu vide, mais elle devrait se remplir !");
         pane0.setMinSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
         WizardPane pane1 = new WizardPane();
-        pane1.setHeaderText("Affichage");
-        pane1.setContentText("Dans les onglets 'affichage' (les boutons flèchés), vous pouvez choisir ce que vous voulez afficher.\n" +
-                "Les paramètres supplémentaires sont optionels, et sont à cocher seulement si vous voulez remplacer la valeur par défaut !\n" +
-                "A noter que pour les valeurs numériques (Vmax, Tmin, Fmax,...), ces valeurs par défaut sont calculées lors de la simulation. Elles ne valent pas 0.0.");
+        pane1.setHeaderText("Validation");
+        pane1.setContentText("Lorsqu'une valeur erronée est entrée, un signe s'affiche pour vous informer de l'erreur.\n" +
+                "Si le champ est désactivé, l'erreur est ignorée (malgré que le symbole apparaisse toujours).");
         pane1.setMinSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
+        WizardPane pane2 = new WizardPane();
+        pane2.setHeaderText("Affichage");
+        pane2.setContentText("Dans les onglets 'affichage' (les boutons flèchés), vous pouvez choisir ce que vous voulez afficher.\n" +
+                "Les paramètres supplémentaires sont optionels, et sont à cocher seulement si vous voulez remplacer la valeur par défaut !");
+        pane2.setMinSize(Region.USE_PREF_SIZE, Region.USE_PREF_SIZE);
         Wizard wizard = new Wizard();
         wizard.setTitle("Aide");
-        wizard.setFlow(new Wizard.LinearFlow(pane0, pane1));
+        wizard.setFlow(new Wizard.LinearFlow(pane0, pane1, pane2));
         wizard.showAndWait();
     }
 
@@ -187,6 +196,18 @@ public class MainWindowController implements Initializable {
         affichageCodageCanalButton.disableProperty().bind(modulerCheckBox.selectedProperty().not());
         decodageCanalButton.disableProperty().bind(modulerCheckBox.selectedProperty().not());
         affichageCanalTransmissionButton.disableProperty().bind(modulerCheckBox.selectedProperty().not());
+        coderCheckBox.selectedProperty().addListener((o, oldVal, newVal) -> {
+            if (!newVal && paramPane.getContent() == Main.paramCodageSource.getView() || paramPane.getContent() ==
+                    Main.paramAffichageCodageSource.getView() || paramPane.getContent() == Main.paramAffichageDecodageCanal.getView()) {
+                paramPane.setContent(null);
+            }
+        });
+        modulerCheckBox.selectedProperty().addListener((o, oldVal, newVal) -> {
+            if (!newVal && paramPane.getContent() == Main.paramCodageCanal.getView() || paramPane.getContent() ==
+                    Main.paramAffichageCodageCanal.getView() || paramPane.getContent() == Main.paramAffichageCanalTransmission.getView()) {
+                paramPane.setContent(null);
+            }
+        });
     }
 
     private void simuler() {

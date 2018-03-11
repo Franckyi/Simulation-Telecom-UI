@@ -1,7 +1,7 @@
 package fr.rtgrenoble.velascof.simtelui.controller.param;
 
+import fr.rtgrenoble.velascof.simtelui.controller.param.base.ParamControllerBase;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -13,7 +13,10 @@ import org.json.JSONObject;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class DonneesController implements Initializable, IParamController {
+import static fr.rtgrenoble.velascof.simtelui.Util.toDouble;
+import static fr.rtgrenoble.velascof.simtelui.Util.toInteger;
+
+public class DonneesController extends ParamControllerBase {
 
     @FXML
     private ToggleGroup group;
@@ -56,19 +59,12 @@ public class DonneesController implements Initializable, IParamController {
         donneePane.disableProperty().bind(donneeButton.selectedProperty().not());
         aleatoirePane.disableProperty().bind(aleatoireButton.selectedProperty().not());
         pseudoAleatoirePane.disableProperty().bind(pseudoAleatoireButton.selectedProperty().not());
-    }
-
-    @Override
-    public boolean validate() {
-        if (!isDouble(debitBinaireField)) return false;
-        if (group.getSelectedToggle() == donneeButton) {
-            return donneeField.getText().matches("[0-1]*");
-        } else if (group.getSelectedToggle() == aleatoireButton) {
-            return isInteger(aleatoireTailleField);
-        } else if (group.getSelectedToggle() == pseudoAleatoireButton) {
-            return isInteger(pseudoAleatoireTailleField) && isInteger(repetitionsField);
-        }
-        return false;
+        registerBinaryStringValidator(donneeField, donneeButton);
+        registerPositiveIntegerValidator(aleatoireTailleField, aleatoireButton);
+        registerPositiveIntegerValidator(pseudoAleatoireTailleField, pseudoAleatoireButton);
+        registerPositiveIntegerValidator(repetitionsField, pseudoAleatoireButton);
+        registerPositiveDoubleValidator(debitBinaireField);
+        getValidationSupport().initInitialDecoration();
     }
 
     @Override
@@ -94,12 +90,12 @@ public class DonneesController implements Initializable, IParamController {
             donneeField.setText(sequence.getString("seq"));
         } else if (!sequence.has("repetitions")) {
             group.selectToggle(aleatoireButton);
-            aleatoireTailleField.setText(String.valueOf(sequence.getInt("taille")));
+            aleatoireTailleField.setText(Integer.toString(sequence.getInt("taille")));
         } else {
             group.selectToggle(pseudoAleatoireButton);
-            pseudoAleatoireTailleField.setText(String.valueOf(sequence.getInt("taille")));
-            repetitionsField.setText(String.valueOf(sequence.getInt("repetitions")));
+            pseudoAleatoireTailleField.setText(Integer.toString(sequence.getInt("taille")));
+            repetitionsField.setText(Integer.toString(sequence.getInt("repetitions")));
         }
-        debitBinaireField.setText(String.valueOf(sequence.getDouble("db")));
+        debitBinaireField.setText(Double.toString(sequence.getDouble("db")));
     }
 }

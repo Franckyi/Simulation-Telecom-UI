@@ -31,7 +31,7 @@
             <children>
                 <HBox fx:id="donneePane" alignment="CENTER_LEFT" spacing="10.0">
                     <children>
-                        <Label prefWidth="200.0" text="Séquence (ex: 1001)  : "/>
+                        <Label prefWidth="200.0" text="Séquence : "/>
                         <TextField fx:id="donneeField"/>
                     </children>
                     <padding>
@@ -52,7 +52,7 @@
                     </padding>
                     <children>
                         <Label prefWidth="200.0" text="Taille (bits) :"/>
-                        <TextField fx:id="aleatoireTailleField" prefWidth="50.0" text="0"/>
+                        <TextField fx:id="aleatoireTailleField" prefWidth="50.0"/>
                     </children>
                 </HBox>
             </children>
@@ -70,7 +70,7 @@
                     </padding>
                     <children>
                         <Label prefWidth="200.0" text="Taille (bits) :"/>
-                        <TextField fx:id="pseudoAleatoireTailleField" prefWidth="50.0" text="0"/>
+                        <TextField fx:id="pseudoAleatoireTailleField" prefWidth="50.0"/>
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" spacing="10.0">
@@ -79,7 +79,7 @@
                     </padding>
                     <children>
                         <Label prefWidth="200.0" text="Nombre de répétitions :"/>
-                        <TextField fx:id="repetitionsField" prefWidth="50.0" text="0"/>
+                        <TextField fx:id="repetitionsField" prefWidth="50.0"/>
                     </children>
                 </HBox>
             </children>
@@ -90,7 +90,7 @@
         <HBox alignment="CENTER_LEFT" spacing="10.0">
             <children>
                 <Label prefWidth="250.0" text="Débit binaire (bit/s) :"/>
-                <TextField fx:id="debitBinaireField" prefWidth="100.0" text="0.0"/>
+                <TextField fx:id="debitBinaireField" prefWidth="100.0"/>
             </children>
         </HBox>
     </children>
