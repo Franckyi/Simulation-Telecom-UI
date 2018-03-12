@@ -22,7 +22,10 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Simulation">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#actionMenuSimuler" text="Simuler"/>
+                        <MenuItem fx:id="menuDemarrerSimulationButton" mnemonicParsing="false"
+                                  onAction="#actionMenuDemarrerSimulation" text="Démarrer la simulation"/>
+                        <MenuItem fx:id="menuArreterSimulationButton" disable="true" mnemonicParsing="false"
+                                  onAction="#actionMenuArreterSimulation" text="Arrêter la simulation"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Aide">
@@ -86,9 +89,10 @@
             <children>
                 <Button mnemonicParsing="false" onAction="#actionCanalTransmission" prefHeight="50.0" prefWidth="130.0"
                         text="Canal de transmission" textAlignment="CENTER" wrapText="true"/>
-                <Button mnemonicParsing="false" onAction="#actionSimulation" prefHeight="50.0" prefWidth="50.0">
+                <Button fx:id="simulationButton" mnemonicParsing="false" onAction="#actionSimulation" prefHeight="50.0"
+                        prefWidth="50.0">
                     <graphic>
-                        <Glyph fontFamily="FontAwesome" fontSize="32" icon="PLAY" style="-fx-text-fill: green;"/>
+                        <Glyph fontFamily="FontAwesome" fontSize="32" icon="PLAY"/>
                     </graphic>
                 </Button>
             </children>

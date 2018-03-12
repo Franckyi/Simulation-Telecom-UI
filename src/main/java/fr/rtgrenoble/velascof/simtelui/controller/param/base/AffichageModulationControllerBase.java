@@ -36,7 +36,7 @@ public abstract class AffichageModulationControllerBase extends AffichageControl
 
     @Override
     public boolean validate() {
-        return !Main.root.getController().modulerCheckBox.isSelected() || super.validate();
+        return !Main.root.getController().getModulerCheckBox().isSelected() || super.validate();
     }
 
     @Override

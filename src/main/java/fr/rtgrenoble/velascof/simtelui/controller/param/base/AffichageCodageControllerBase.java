@@ -55,7 +55,7 @@ public abstract class AffichageCodageControllerBase extends AffichageControllerB
 
     @Override
     public boolean validate() {
-        return !Main.root.getController().coderCheckBox.isSelected() || super.validate();
+        return !Main.root.getController().getCoderCheckBox().isSelected() || super.validate();
     }
 
     @Override

@@ -112,12 +112,12 @@ public class CodageCanalController extends ParamControllerBase {
 
     @Override
     public boolean validate() {
-        return !Main.root.getController().modulerCheckBox.isSelected() || super.validate();
+        return !Main.root.getController().getModulerCheckBox().isSelected() || super.validate();
     }
 
     @Override
     public void toJson(JSONObject json) {
-        if (!Main.root.getController().modulerCheckBox.isSelected()) return;
+        if (!Main.root.getController().getModulerCheckBox().isSelected()) return;
         JSONObject modulation = new JSONObject();
         if (group.getSelectedToggle() == askButton) {
             modulation.put("type", "ask");
@@ -142,7 +142,7 @@ public class CodageCanalController extends ParamControllerBase {
     @Override
     public void fromJson(JSONObject json) throws JSONException {
         if (!json.has("modulation")) {
-            Main.root.getController().modulerCheckBox.setSelected(false);
+            Main.root.getController().getModulerCheckBox().setSelected(false);
             return;
         }
         JSONObject modulation = json.getJSONObject("modulation");

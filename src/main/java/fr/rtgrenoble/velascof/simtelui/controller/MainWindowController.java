@@ -12,9 +12,11 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import org.controlsfx.dialog.Wizard;
 import org.controlsfx.dialog.WizardPane;
+import org.controlsfx.glyphfont.Glyph;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,14 +25,26 @@ import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
 
-    @FXML
-    public MenuItem menuEnregistrer;
+    private static final Glyph GLYPH_START = Glyph.create("FontAwesome|PLAY");
+    private static final Glyph GLYPH_STOP = Glyph.create("FontAwesome|STOP");
 
     @FXML
-    public CheckBox coderCheckBox;
+    private MenuItem menuEnregistrer;
 
     @FXML
-    public CheckBox modulerCheckBox;
+    private MenuItem menuDemarrerSimulationButton;
+
+    @FXML
+    private MenuItem menuArreterSimulationButton;
+
+    @FXML
+    private CheckBox coderCheckBox;
+
+    @FXML
+    private CheckBox modulerCheckBox;
+
+    @FXML
+    private Button simulationButton;
 
     @FXML
     private Button codageSourceButton;
@@ -58,6 +72,50 @@ public class MainWindowController implements Initializable {
 
     @FXML
     private ScrollPane paramPane;
+
+    public CheckBox getCoderCheckBox() {
+        return coderCheckBox;
+    }
+
+    public CheckBox getModulerCheckBox() {
+        return modulerCheckBox;
+    }
+
+    public void changerBoutonsSimulation(boolean b) {
+        simulationButton.setGraphic(b ? GLYPH_STOP : GLYPH_START);
+        menuDemarrerSimulationButton.setDisable(b);
+        menuArreterSimulationButton.setDisable(!b);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        paramPane.setContent(Main.paramDonnees.getView());
+        codageSourceButton.disableProperty().bind(coderCheckBox.selectedProperty().not());
+        affichageCodageSourceButton.disableProperty().bind(coderCheckBox.selectedProperty().not());
+        decodageSourceButton.disableProperty().bind(coderCheckBox.selectedProperty().not());
+        affichageDecodageCanalButton.disableProperty().bind(coderCheckBox.selectedProperty().not());
+        codageCanalButton.disableProperty().bind(modulerCheckBox.selectedProperty().not());
+        affichageCodageCanalButton.disableProperty().bind(modulerCheckBox.selectedProperty().not());
+        decodageCanalButton.disableProperty().bind(modulerCheckBox.selectedProperty().not());
+        affichageCanalTransmissionButton.disableProperty().bind(modulerCheckBox.selectedProperty().not());
+        getCoderCheckBox().selectedProperty().addListener((o, oldVal, newVal) -> {
+            if (!newVal && paramPane.getContent() == Main.paramCodageSource.getView() || paramPane.getContent() ==
+                    Main.paramAffichageCodageSource.getView() || paramPane.getContent() == Main.paramAffichageDecodageCanal.getView()) {
+                paramPane.setContent(null);
+            }
+        });
+        getModulerCheckBox().selectedProperty().addListener((o, oldVal, newVal) -> {
+            if (!newVal && paramPane.getContent() == Main.paramCodageCanal.getView() || paramPane.getContent() ==
+                    Main.paramAffichageCodageCanal.getView() || paramPane.getContent() == Main.paramAffichageCanalTransmission.getView()) {
+                paramPane.setContent(null);
+            }
+        });
+        GLYPH_START.setTextFill(Color.GREEN);
+        GLYPH_START.setFontSize(30);
+        GLYPH_STOP.setTextFill(Color.RED);
+        GLYPH_STOP.setFontSize(30);
+        simulationButton.setGraphic(GLYPH_START);
+    }
 
     @FXML
     void actionMenuNouveau(ActionEvent event) throws IOException {
@@ -105,8 +163,15 @@ public class MainWindowController implements Initializable {
     }
 
     @FXML
-    void actionMenuSimuler(ActionEvent event) {
+    void actionMenuDemarrerSimulation(ActionEvent event) {
         simuler();
+    }
+
+    @FXML
+    void actionMenuArreterSimulation(ActionEvent event) {
+        if (SimulationTask.p != null) {
+            SimulationTask.p.destroy();
+        }
     }
 
     @FXML
@@ -160,7 +225,11 @@ public class MainWindowController implements Initializable {
 
     @FXML
     void actionSimulation(ActionEvent event) {
-        simuler();
+        if (SimulationTask.p != null && SimulationTask.p.isAlive()) {
+            SimulationTask.p.destroy();
+        } else {
+            simuler();
+        }
     }
 
     @FXML
@@ -185,32 +254,8 @@ public class MainWindowController implements Initializable {
         wizard.showAndWait();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        paramPane.setContent(Main.paramDonnees.getView());
-        codageSourceButton.disableProperty().bind(coderCheckBox.selectedProperty().not());
-        affichageCodageSourceButton.disableProperty().bind(coderCheckBox.selectedProperty().not());
-        decodageSourceButton.disableProperty().bind(coderCheckBox.selectedProperty().not());
-        affichageDecodageCanalButton.disableProperty().bind(coderCheckBox.selectedProperty().not());
-        codageCanalButton.disableProperty().bind(modulerCheckBox.selectedProperty().not());
-        affichageCodageCanalButton.disableProperty().bind(modulerCheckBox.selectedProperty().not());
-        decodageCanalButton.disableProperty().bind(modulerCheckBox.selectedProperty().not());
-        affichageCanalTransmissionButton.disableProperty().bind(modulerCheckBox.selectedProperty().not());
-        coderCheckBox.selectedProperty().addListener((o, oldVal, newVal) -> {
-            if (!newVal && paramPane.getContent() == Main.paramCodageSource.getView() || paramPane.getContent() ==
-                    Main.paramAffichageCodageSource.getView() || paramPane.getContent() == Main.paramAffichageDecodageCanal.getView()) {
-                paramPane.setContent(null);
-            }
-        });
-        modulerCheckBox.selectedProperty().addListener((o, oldVal, newVal) -> {
-            if (!newVal && paramPane.getContent() == Main.paramCodageCanal.getView() || paramPane.getContent() ==
-                    Main.paramAffichageCodageCanal.getView() || paramPane.getContent() == Main.paramAffichageCanalTransmission.getView()) {
-                paramPane.setContent(null);
-            }
-        });
-    }
-
     private void simuler() {
+        changerBoutonsSimulation(true);
         Main.EXECUTOR_SERVICE.execute(new SimulationTask());
     }
 

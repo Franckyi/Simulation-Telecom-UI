@@ -79,7 +79,7 @@ public class CodageSourceController extends ParamControllerBase {
 
     @Override
     public boolean validate() {
-        return !Main.root.getController().coderCheckBox.isSelected() || super.validate();
+        return !Main.root.getController().getCoderCheckBox().isSelected() || super.validate();
     }
 
     @Override
@@ -104,7 +104,7 @@ public class CodageSourceController extends ParamControllerBase {
 
     @Override
     public void toJson(JSONObject json) {
-        if (!Main.root.getController().coderCheckBox.isSelected()) return;
+        if (!Main.root.getController().getCoderCheckBox().isSelected()) return;
         JSONObject codage = new JSONObject();
         if (group.getSelectedToggle() == nrzButton) {
             codage.put("type", "nrz");
@@ -132,7 +132,7 @@ public class CodageSourceController extends ParamControllerBase {
     @Override
     public void fromJson(JSONObject json) throws JSONException {
         if (!json.has("codage")) {
-            Main.root.getController().coderCheckBox.setSelected(false);
+            Main.root.getController().getCoderCheckBox().setSelected(false);
             return;
         }
         JSONObject codage = json.getJSONObject("codage");
