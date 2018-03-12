@@ -175,14 +175,7 @@ public abstract class ParamControllerBase implements Initializable {
     }
 
     public boolean validate() {
-        for (BaseValidator validator : validators) {
-            boolean b = validator.validate();
-            if (!b) {
-                return false;
-            }
-        }
-        return true;
-        //return validators.stream().allMatch(BaseValidator::validate);
+        return validators.stream().allMatch(BaseValidator::validate);
     }
 
     public abstract void toJson(JSONObject json);

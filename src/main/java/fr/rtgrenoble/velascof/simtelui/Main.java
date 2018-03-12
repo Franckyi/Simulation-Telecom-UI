@@ -17,7 +17,6 @@ import java.util.concurrent.Executors;
 public class Main extends Application {
 
     public static final ExecutorService EXECUTOR_SERVICE = Executors.newCachedThreadPool();
-    public static final File CFG_FILE = new File("UI_CONFIG.json");
     public static final Configuration configuration = new Configuration();
 
     public static Stage primaryStage, configStage, consoleStage;
@@ -38,21 +37,10 @@ public class Main extends Application {
     public static File currentFile;
 
     public static void main(String[] args) {
-        if (CFG_FILE.exists()) {
+        if (Configuration.CFG_FILE.exists()) {
             configuration.load();
         } else {
-            try {
-                if (CFG_FILE.getParentFile() != null) {
-                    CFG_FILE.getParentFile().mkdirs();
-                }
-                CFG_FILE.createNewFile();
-                configuration.setShowScriptOutput(false);
-                configuration.setScriptFile(new File(new File(".").getAbsolutePath(), "fichier.py").getAbsolutePath());
-                configuration.save();
-            } catch (IOException e) {
-                System.out.println("!!! Erreur d'initialisation de la configuration !!!");
-                e.printStackTrace();
-            }
+            configuration.loadDefaults();
         }
         launch(args);
     }

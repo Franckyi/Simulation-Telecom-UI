@@ -2,13 +2,11 @@ package fr.rtgrenoble.velascof.simtelui;
 
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class Configuration {
 
+    public static final File CFG_FILE = new File("UI_CONFIG.json");
     private boolean showScriptOutput;
     private String scriptFile;
 
@@ -31,7 +29,7 @@ public class Configuration {
     public void load() {
         StringBuilder s = new StringBuilder();
         String line;
-        try (BufferedReader reader = new BufferedReader(new FileReader(Main.CFG_FILE))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(CFG_FILE))) {
             while ((line = reader.readLine()) != null) {
                 s.append(line);
             }
@@ -47,7 +45,7 @@ public class Configuration {
         JSONObject cfg = new JSONObject();
         cfg.put("afficher_sortie_script", showScriptOutput);
         cfg.put("chemin_vers_fichier.py", scriptFile);
-        try (FileWriter writer = new FileWriter(Main.CFG_FILE)) {
+        try (FileWriter writer = new FileWriter(CFG_FILE)) {
             writer.write(cfg.toString());
         } catch (IOException e) {
             e.printStackTrace();
@@ -55,4 +53,18 @@ public class Configuration {
     }
 
 
+    public void loadDefaults() {
+        try {
+            if (CFG_FILE.getParentFile() != null) {
+                CFG_FILE.getParentFile().mkdirs();
+            }
+            CFG_FILE.createNewFile();
+            setShowScriptOutput(false);
+            setScriptFile(new File(System.getProperty("user.home"), "fichier.py").getAbsolutePath());
+            save();
+        } catch (IOException e) {
+            System.out.println("!!! Erreur d'initialisation de la configuration !!!");
+            e.printStackTrace();
+        }
+    }
 }

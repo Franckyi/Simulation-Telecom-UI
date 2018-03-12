@@ -20,7 +20,6 @@ public class ModulationListCellView extends ListCell<ModulationListItem> {
     private TextField textField = new TextField();
 
     public ModulationListCellView(CodageCanalController parent, RadioButton b) {
-        parent.registerDoubleValidator(textField, b);
         this.setPrefHeight(40);
         label.setLabelFor(textField);
         textField.setPrefWidth(50);

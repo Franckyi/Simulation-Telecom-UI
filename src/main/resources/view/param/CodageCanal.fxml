@@ -22,7 +22,7 @@
                 </Label>
             </children>
         </VBox>
-        <RadioButton fx:id="askButton" mnemonicParsing="false" selected="true" text="ASK-2">
+        <RadioButton fx:id="askButton" mnemonicParsing="false" selected="true" text="ASK">
             <toggleGroup>
                 <ToggleGroup fx:id="group"/>
             </toggleGroup>
@@ -62,7 +62,7 @@
                 </HBox>
             </children>
         </VBox>
-        <RadioButton fx:id="fskButton" mnemonicParsing="false" text="FSK-2" toggleGroup="$group"/>
+        <RadioButton fx:id="fskButton" mnemonicParsing="false" text="FSK" toggleGroup="$group"/>
         <VBox fx:id="fskPane" spacing="5.0">
             <padding>
                 <Insets left="50.0"/>
@@ -98,7 +98,7 @@
                 <Insets bottom="10.0"/>
             </VBox.margin>
         </VBox>
-        <RadioButton fx:id="pskButton" mnemonicParsing="false" text="PSK-2" toggleGroup="$group"/>
+        <RadioButton fx:id="pskButton" mnemonicParsing="false" text="PSK" toggleGroup="$group"/>
         <VBox fx:id="pskPane" spacing="5.0">
             <padding>
                 <Insets left="50.0"/>
@@ -134,7 +134,7 @@
                 <Insets bottom="10.0"/>
             </VBox.margin>
         </VBox>
-        <RadioButton disable="true" mnemonicParsing="false" text="QAM-2" toggleGroup="$group"/>
+        <RadioButton disable="true" mnemonicParsing="false" text="QAM" toggleGroup="$group"/>
         <Label disable="true" text="Bientôt !">
             <padding>
                 <Insets left="50.0"/>
