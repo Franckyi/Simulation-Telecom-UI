@@ -55,7 +55,6 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         configStage.setScene(new Scene(config.getView()));
         configStage.setResizable(false);
-        configStage.setAlwaysOnTop(true);
         configStage.setTitle("Simulation Télécom UI - Configuration");
         consoleStage.setResizable(false);
         consoleStage.setTitle("Simulation Télécom UI - Console");

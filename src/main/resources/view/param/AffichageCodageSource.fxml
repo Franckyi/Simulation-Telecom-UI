@@ -102,7 +102,7 @@
                             <children>
                                 <CheckBox fx:id="fMinButton" mnemonicParsing="false" prefWidth="100.0"
                                           text="Fmin (Hz) :"/>
-                                <TextField fx:id="fMinField" prefWidth="100.0" text="0.0"/>
+                                <TextField fx:id="fMinField" prefWidth="100.0"/>
                             </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="10.0">
@@ -120,7 +120,7 @@
                             <children>
                                 <CheckBox fx:id="vMinSpectreButton" mnemonicParsing="false" prefWidth="100.0"
                                           text="Vmin (V) :"/>
-                                <TextField fx:id="vMinSpectreField" prefWidth="100.0" text="0.0"/>
+                                <TextField fx:id="vMinSpectreField" prefWidth="100.0"/>
                             </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="10.0">
