@@ -35,6 +35,12 @@ public class SimulationTask extends TaskBase {
                         Platform.runLater(() -> Main.console.appendLine(finalLine));
                     }
                     input.close();
+                } catch (IOException e) {
+                    Platform.runLater(() -> {
+                        Main.root.getController().changerBoutonsSimulation(false);
+                        Main.consoleStage.close();
+                    });
+
                 }
             }
             while (p.isAlive()) {
@@ -43,6 +49,7 @@ public class SimulationTask extends TaskBase {
         } else {
             Platform.runLater(() -> {
                 Main.root.getController().changerBoutonsSimulation(false);
+                Main.consoleStage.close();
                 new Alert(Alert.AlertType.ERROR, "Certaines informations sont erronnées.", ButtonType.OK).show();
             });
         }
