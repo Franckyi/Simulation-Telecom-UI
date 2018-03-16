@@ -152,18 +152,21 @@ public class CodageCanalController extends ParamControllerBase {
                 createListView(modulation.getJSONArray("v"), askOrdreField, askListView, "V");
                 askFpField.setText(Double.toString(modulation.getDouble("fp")));
                 askPhaseField.setText(Double.toString(modulation.getDouble("p")));
+                updateAsk();
                 break;
             case "fsk":
                 group.selectToggle(fskButton);
                 fskTensionField.setText(Double.toString(modulation.getDouble("v")));
                 createListView(modulation.getJSONArray("f"), fskOrdreField, fskListView, "F");
                 fskPhaseField.setText(Double.toString(modulation.getDouble("p")));
+                updateFsk();
                 break;
             case "psk":
                 group.selectToggle(pskButton);
                 pskTensionField.setText(Double.toString(modulation.getDouble("v")));
                 pskFpField.setText(Double.toString(modulation.getDouble("fp")));
                 createListView(modulation.getJSONArray("p"), pskOrdreField, pskListView, "P");
+                updatePsk();
                 break;
         }
         fEchField.setText(Double.toString(modulation.getDouble("fech")));

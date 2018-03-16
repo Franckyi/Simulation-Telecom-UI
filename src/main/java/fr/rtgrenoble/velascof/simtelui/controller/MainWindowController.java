@@ -121,7 +121,6 @@ public class MainWindowController implements Initializable {
     void actionMenuNouveau(ActionEvent event) throws IOException {
         Main.currentFile = null;
         Main.start();
-
     }
 
     @FXML
@@ -149,12 +148,14 @@ public class MainWindowController implements Initializable {
     }
 
     @FXML
-    void actionMenuOuvrir(ActionEvent event) {
+    void actionMenuOuvrir(ActionEvent event) throws IOException {
         FileChooser chooser = new FileChooser();
         chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Fichier de simulation JSON", "*.json"));
         chooser.setTitle("Ouvrir...");
         File file = chooser.showOpenDialog(Main.primaryStage);
         if (file != null) {
+            Main.currentFile = null;
+            Main.start();
             Main.EXECUTOR_SERVICE.submit(new LoadTask(file));
             Main.currentFile = file;
             Main.updateTitle();

@@ -22,7 +22,6 @@ public class ModulationListCellView extends ListCell<ModulationListItem> {
     public ModulationListCellView(CodageCanalController parent, RadioButton b) {
         this.setPrefHeight(40);
         label.setLabelFor(textField);
-        textField.setPrefWidth(50);
         textField.textProperty().addListener((v, oldVal, newVal) -> model.setValue(toDouble(textField)));
         hBox.setAlignment(Pos.CENTER_LEFT);
         hBox.setPrefHeight(40);
